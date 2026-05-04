@@ -1,116 +1,120 @@
 # Bilibili Danmaku Crawler
 
-## 📌 项目简介
+## 📌 Introduction
 
-一个基于 Python 的弹幕爬虫工具，用于抓取哔哩哔哩（Bilibili）视频弹幕，并导出为 CSV 文件，便于后续数据分析。
-
----
-
-## 🚀 功能
-
-* 获取视频弹幕 XML 数据
-* 解析弹幕文本内容
-* 导出结构化 CSV 文件
+A simple Python crawler for fetching danmaku (bullet comments) from Bilibili videos and exporting them to a CSV file for further analysis.
 
 ---
 
-## 🛠️ 环境依赖
+## 🚀 Features
 
-```bash id="a8k2mx"
+* Fetch danmaku data in XML format
+* Parse danmaku text content
+* Export structured data to CSV
+
+---
+
+## 🛠️ Requirements
+
+```bash
 pip install requests lxml
 ```
 
 ---
 
-## 📥 获取 CID（关键）
+## 📥 How to Get CID (Important)
 
-CID 是弹幕数据的唯一标识，不同视频对应不同 CID。
+CID (Comment ID) is the unique identifier for danmaku data.
 
-### 普通视频
+### Normal Videos
 
-在开发者工具（F12）→ Network 中搜索 `.xml`：
+Open Developer Tools (F12) → Network → search for `.xml`:
 
-```text id="p7x2ld"
+```
 https://comment.bilibili.com/123456.xml
 ```
 
-👉 `123456` 即 CID
+👉 `123456` is the CID
 
 ---
 
-### 番剧（bangumi）
+### Bangumi (Anime / Episodes)
 
-番剧（ep 链接）不能直接使用，需要在 Network 中获取：
+Episode links (ep) cannot be used directly.
 
-* `.xml` 请求中的 `oid` 即 CID
-* 本质等同于弹幕视频 ID
+You need to find the CID from:
+
+* `.xml` request in Network
+* or `oid` parameter in API requests
+
+👉 `oid` is essentially the CID
 
 ---
 
-### 验证方式
+### Verification
 
-在浏览器中访问：
+Open in browser:
 
-```text id="m9k8qv"
-https://comment.bilibili.com/你的cid.xml
+```
+https://comment.bilibili.com/your_cid.xml
 ```
 
-若可正常打开 XML 文件，则 CID 有效。
+If the XML loads correctly, the CID is valid.
 
 ---
 
-## ▶️ 使用方法
+## ▶️ Usage
 
-修改代码中的 CID：
+Modify the CID in the script:
 
-```python id="v2k7zd"
+```python
 cid = 5000135
 ```
 
-运行程序：
+Run:
 
-```bash id="c5n2qp"
+```bash
 python parse_danmaku.py
 ```
 
 ---
 
-## 📊 输出结果
+## 📊 Output
 
-程序运行后会生成：
+The program generates:
 
-```text id="t9v3mx"
+```
 danmaku.csv
 ```
 
-### 示例输出：
+Example:
 
-| 弹幕内容 |
-| ---- |
-| 哈哈哈  |
-| 前方高能 |
-| 来了来了 |
-| 泪目   |
+| Danmaku  |
+| -------- |
+| hahaha   |
+| incoming |
+| amazing  |
+| wow      |
 
-> ⚠️ 输出结果基于所选视频的弹幕内容，不同视频结果会完全不同。
+> ⚠️ Output results depend on the selected video's danmaku content.
 
 ---
 
-## 🧠 项目原理
+## 🧠 Workflow
 
-```text id="q2m8ld"
-获取 CID → 请求 XML → 解析弹幕 → 保存为 CSV
+```
+Get CID → Request XML → Parse Data → Export CSV
 ```
 
 ---
 
-## ⚠️ 说明
+## ⚠️ Disclaimer
 
-本项目仅用于学习与数据分析研究，请遵守相关平台使用规范。
+This project is for educational and research purposes only. Please comply with Bilibili's terms of service.
 
 ---
 
-## 👤 作者
+## 👤 Author
 
 GitHub: https://github.com/ForgotlisteningSix
 
