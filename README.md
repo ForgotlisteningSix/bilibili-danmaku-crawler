@@ -1,120 +1,247 @@
-# Bilibili Danmaku Crawler
+# Bilibili Danmaku Analysis Toolkit
 
 ## 📌 Introduction
 
-A simple Python crawler for fetching danmaku (bullet comments) from Bilibili videos and exporting them to a CSV file for further analysis.
+Bilibili Danmaku Analysis Toolkit is a Python-based toolkit for collecting, processing, and analyzing danmaku (bullet comments) from Bilibili videos.
+
+The project supports the complete workflow from danmaku acquisition to text analysis, including:
+
+* Automatic CID retrieval from BV IDs
+* Danmaku downloading
+* XML parsing
+* CSV export
+* Chinese word segmentation
+* Stopword filtering
+* Word frequency analysis
+* Word cloud visualization
+
+This toolkit was developed as a small-scale corpus analysis tool and can be applied to audience studies, digital humanities research, intercultural communication research, and social media discourse analysis.
 
 ---
 
 ## 🚀 Features
 
-* Fetch danmaku data in XML format
-* Parse danmaku text content
-* Export structured data to CSV
+### Data Collection
+
+* Automatically retrieve CID from Bilibili BV IDs
+* Download danmaku data in XML format
+* Parse danmaku content from XML files
+* Export danmaku data to CSV format
+
+### Text Analysis
+
+* Chinese word segmentation using Jieba
+* Stopword filtering
+* High-frequency word statistics
+* Top keyword extraction
+
+### Visualization
+
+* Generate word cloud visualizations
+* Export word cloud images as PNG files
 
 ---
 
-## 🛠️ Requirements
+## 📂 Project Structure
+
+```text
+.
+├── crawler
+│   ├── get_cid.py
+│   ├── fetch_danmaku.py
+│   └── parse_danmaku.py
+│
+├── analysis
+│   ├── word_freq.py
+│   └── wordcloud_m.py
+│
+├── data
+│   └── danmaku.csv
+│
+├── output
+│   └── wordcloud.png
+│
+├── stopwords.txt
+├── README.md
+└── .gitignore
+```
+
+---
+
+## 🛠 Requirements
+
+Install dependencies:
 
 ```bash
-pip install requests lxml
+pip install requests lxml pandas jieba wordcloud matplotlib
 ```
 
 ---
 
-## 📥 How to Get CID (Important)
+## ▶ Workflow
 
-CID (Comment ID) is the unique identifier for danmaku data.
-
-### Normal Videos
-
-Open Developer Tools (F12) → Network → search for `.xml`:
-
+```text
+BV ID
+ ↓
+Get CID
+ ↓
+Download Danmaku XML
+ ↓
+Parse XML
+ ↓
+Export CSV
+ ↓
+Chinese Word Segmentation
+ ↓
+Stopword Filtering
+ ↓
+Word Frequency Analysis
+ ↓
+Word Cloud Visualization
 ```
-https://comment.bilibili.com/123456.xml
-```
-
-👉 `123456` is the CID
 
 ---
 
-### Bangumi (Anime / Episodes)
+## 📥 Usage
 
-Episode links (ep) cannot be used directly.
-
-You need to find the CID from:
-
-* `.xml` request in Network
-* or `oid` parameter in API requests
-
-👉 `oid` is essentially the CID
-
----
-
-### Verification
-
-Open in browser:
-
-```
-https://comment.bilibili.com/your_cid.xml
-```
-
-If the XML loads correctly, the CID is valid.
-
----
-
-## ▶️ Usage
-
-Modify the CID in the script:
+### Step 1: Get CID from BV ID
 
 ```python
-cid = 5000135
+from get_cid import get_cid
+
+cid = get_cid("BVxxxxxxxxx")
+print(cid)
+```
+
+---
+
+### Step 2: Download and Parse Danmaku
+
+Modify the CID value in:
+
+```python
+cid = your_cid
 ```
 
 Run:
 
 ```bash
-python parse_danmaku.py
+python crawler/parse_danmaku.py
+```
+
+Output:
+
+```text
+data/danmaku.csv
 ```
 
 ---
 
-## 📊 Output
+### Step 3: Word Frequency Analysis
 
-The program generates:
+Run:
 
+```bash
+python analysis/word_freq.py
 ```
-danmaku.csv
+
+Example output:
+
+```text
+中国 532
+日本 421
+文化 318
+纪录片 287
 ```
 
-Example:
+---
 
-| Danmaku  |
+### Step 4: Generate Word Cloud
+
+Run:
+
+```bash
+python analysis/wordcloud_m.py
+```
+
+Output:
+
+```text
+output/wordcloud.png
+```
+
+---
+
+## 📊 Example Output
+
+CSV:
+
+| 弹幕内容     |
 | -------- |
-| hahaha   |
-| incoming |
-| amazing  |
-| wow      |
+| 哈哈哈      |
+| 来了来了     |
+| 泪目       |
+| 日本人好有礼貌  |
+| 中国文化真有意思 |
 
-> ⚠️ Output results depend on the selected video's danmaku content.
+Word Cloud:
 
----
-
-## 🧠 Workflow
-
-```
-Get CID → Request XML → Parse Data → Export CSV
+```text
+output/wordcloud.png
 ```
 
 ---
 
-## ⚠️ Disclaimer
+## 🔬 Research Applications
 
-This project is for educational and research purposes only. Please comply with Bilibili's terms of service.
+This project can be used for:
+
+* Corpus Linguistics
+* Audience Research
+* Digital Humanities
+* Intercultural Communication Studies
+* Social Media Discourse Analysis
+* Cultural Perception Research
+* Online Community Studies
+
+Example research topics:
+
+* Audience responses to documentary films
+* Cross-cultural communication on social media
+* Danmaku discourse analysis
+* Keyword extraction from online comments
+* Public perception studies
+
+---
+
+## ⚠ Limitations
+
+* Currently supports single-video danmaku collection.
+* Historical danmaku retrieval is not implemented.
+* Word segmentation quality depends on Jieba's dictionary.
+* Chinese font paths may need adjustment on non-Windows systems.
+
+---
+
+## 📈 Future Improvements
+
+* Historical danmaku support
+* Sentiment analysis
+* Topic modeling
+* Network analysis
+* Interactive visualization dashboard
+* Multi-video corpus construction
+
+---
+
+## ⚠ Disclaimer
+
+This project is intended for educational and research purposes only.
+
+Users should comply with Bilibili's Terms of Service when collecting and using data.
 
 ---
 
 ## 👤 Author
 
 GitHub: https://github.com/ForgotlisteningSix
-
